@@ -1,0 +1,26 @@
+<% content_for :title { "#{@customer.full_name}'s Order History" } %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Status</th>
+      <th># of Products</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @customer.orders.each do |order| %>
+      <tr>
+        <td><%= l(order.date_created) %></td>
+        <td><%= order.status %></td>
+        <td><%= order.products.count %></td>
+        <td><%= format_amount(order.total_inc_tax, order.currency_code)  %></td>
+      </tr>
+    <% end %>
+    <tr>
+      <td colspan="3">Lifetime Value</td>
+      <td><b><%= format_amount(@customer.lifetime_value, @customer.currency_code)  %></b></td>
+    </tr>
+  </tbody>
+</table>
