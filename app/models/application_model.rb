@@ -3,8 +3,11 @@ class ApplicationModel
 
   DATETIME_FORMAT = '%a, %d %b %Y %T %z'.freeze
 
+  # This is a generic parser and it is meant to handle type conversions
+  # for semplicity it only considers dates here but it can be extended
+  
   def parse(key, value, obj)
-    key[/date_*/] && value ? DateTime.strptime(value, DATETIME_FORMAT) : value
+    key[/^date_*/] && value ? DateTime.strptime(value, DATETIME_FORMAT) : value
   end
 
   def update
